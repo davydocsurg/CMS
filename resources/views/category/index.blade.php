@@ -24,23 +24,28 @@
 		</div>
 		<div class="card-body">
 			@if ($categories->count() > 0)
-			<table class="table table-dark table-hover">
+			<table class="table table-dark table-hover  table-responsive">
 				<thead>
 					<tr>
 						{{-- <th scope="col">#</th> --}}
+						<th scope="col">Id</th>
 						<th scope="col">Name</th>
-						<th scope="col"></th>
-						<th scope="col"></th>
+						<th scope="col">No. of Posts</th>
+						<th scope="col">Edit</th>
+						<th scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 
 					@foreach ($categories as $category)
 					<tr>
-						{{-- {{-- <td><ol><li></li></ol></td> --}}
+						<td>{{ $category->id }}.</td>
 						<td>{{ $category->name }}</td>
+
+						<td>{{ $category->posts->count() }}</td>
+
 						<td><a class="btn btn-info btn-sm" href="{{ route('categories.edit', $category->id) }}"><i class="far fa-edit"></i>
-							</a></td>
+						</a></td>
 
 						<td><button class="btn btn-danger btn-sm"  onclick="handleDelete({{ $category->id }})" ><i class="far fa-trash-alt"></i>
 						</button></td>

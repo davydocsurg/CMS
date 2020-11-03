@@ -23,37 +23,54 @@
 
 		</div>
 		<div class="card-body">
-			@if ($posts->count() > 0)
-			<table class="table table-dark table-hover">
+			@if ($posts->count() > 0 )
+			<table class="table table-dark table-hover table-responsive">
 				<thead>
 					<tr>
+						<th scope="col">Id</th>
 						<th scope="col">Image</th>
 						<th scope="col">Title</th>
-						<th scope="col"></th>
-						<th scope="col"></th>
+						<th scope="col">Category</th>
+						<th scope="col">Edit</th>
+						<th scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
 					@foreach ($posts as $post)
 						<tr>
 							<td>
+								{{ $post->id }}.
+							</td>
+							<td>
 								<img src="{{ $post->image }}" width="50%" height="50%" alt="" srcset="">
 							</td>
 							<td>{{ $post->title }}</td>
+							<td>
+								<a href="{{ route('categories.edit', $post->category->id) }}" class=" btn btn-warning btn-sm" style="font-style: italic; font-family:Arial, Helvetica, sans-serif">
+									{{ $post->category->name }}
+								</a>
+							</td>
 							@if (!$post->trashed())
 								<td>
-									<button class="btn btn-info btn-sm" href="{{ route('post.edit', $post->id) }}"><i class="far fa-edit"></i>
-									</button>
+									<a class="btn btn-info btn-sm" href="{{ route('post.edit', $post->id) }}"><i class="far fa-edit"></i>
+									</a>
 								</td>
+							@else
+							<td>
+								<form action="{{ route('restore-posts', $post->id) }}" method="POST">
+									@csrf
+									@method('PUT')
+									<button type="submit" class="btn btn-info btn-sm" ><i class="fas fa-trash-restore"></i>
+									</button>
+								</form>
+							</td>
 							@endif
-
 							<td>
 								<form action="{{ route('post.destroy', $post->id) }}" method="POST">
 								@csrf
 								@method('DELETE')
 								<button type="submit" class="btn btn-danger btn-sm">
-									{{-- {{ $post->trashed() ? '<i class="fas fa-trash-restore"></i>' : '<i class="fas fa-trash"></i>' }} --}}
-									<i class="{{ !$post->trashed() ? 'fas fa-trash-retore' : 'fas fa-trash' }}"></i>
+									<i class="{{ !$post->trashed() ? 'fas fa-trash-alt' : 'fas fa-trash' }}"></i>
 								</button>
 								</form>
 							</td>

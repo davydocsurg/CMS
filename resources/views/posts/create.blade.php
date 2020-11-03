@@ -1,13 +1,13 @@
 @extends('layouts.nav')
 
 @section('content')
-<div class="col-sm-6 col-lg-10 mb-4 container">
+<div class="col-sm-12 col-md-12 col-lg-10 mb-4 container">
 	<div class="card text-white bg-dark">
 		<div class="card-header bg-dark">
 			<div class="card-title">
 				<div class="float-left">
-					Create Post
-					{{-- {{ isset($post) ? 'Edit Post' : '	Create Post' }} --}}
+					{{-- Create Post --}}
+					{{ isset($post) ? 'Edit Post' : '	Create Post' }}
 				</div>
 				{{-- <div class="float-right">
 					<a class="float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -24,69 +24,113 @@
 
 		</div>
 		<div class="card-body">
+			@include('partials.errors')
 
-			@if ($errors->any())
-				<div class="alert alert-danger">
-						<ul class="list-group">
-							@foreach ($errors->all() as $error)
-							<li class="text-danger" style="list-style: none">
-								{{ $error }}
-							</li>
-							@endforeach
-						</ul>
-					</div>
-			@endif
-
-			<form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data">
-				{{-- <form action="{{ isset($post) ? route('posts.update', $post->id) : route('posts.store') }}" method="post" enctype="multipart/form-data"> --}}
+			{{-- <form action="{{ route('post.store') }}" method="post" enctype="multipart/form-data"> --}}
+				<form action="{{ isset($post) ? route('post.update', $post->id) : route('post.store') }}" method="post" enctype="multipart/form-data">
 				@csrf
-				{{-- @if (isset($post))
+				@if (isset($post))
 					@method('PUT')
-				@endif --}}
+				@endif
 				<div class="form-group">
 					<label for="title">Title</label>
-					<input type="text" class="form-control" id="title" name="title" placeholder="Enter post Title"  >
+					<input type="text" class="form-control" id="title" name="title" placeholder="Enter post Title" value="{{ isset($post) ? $post->title : '' }}" >
 				</div>
-				{{-- value="{{ isset($post) ? $post->name : '' }}" --}}
 
 				<div class="form-group">
 					<label for="description">Description</label>
-					<textarea name="description" id="description" class="form-control" cols="5" rows="5"></textarea>
+					<textarea name="description" id="description" class="form-control" cols="5" rows="5"
+					placeholder="Enter post Description"
+					>{{ isset($post) ? $post->description : '' }}</textarea>
 				</div>
 
 				<div class="form-group">
 					<label for="content">Content</label>
-					{{-- @trix(\App\Post::class, 'content') --}}
-					{{-- <textarea name="content" id="content" class="form-control" cols="5" rows="5"></textarea> --}}
-					{{-- @trixassets --}}
+					<textarea name="content" id="content" class="form-control" cols="5" placeholder="Enter post Content" rows="5" >{{ isset($post) ? $post->content : '' }}</textarea>
 
-					<input id="content" type="hidden" name="content">
-  				<trix-editor input="content"></trix-editor>
+					{{-- <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : '' }}" id="content" class="form-control">
+  				<trix-editor input="content" ></trix-editor>  --}}
 				</div>
 
 				<div class="form-group">
 					<label for="published_at">Published At</label>
-					<input type="text" class="form-control" id="published_at" name="published_at">
+					<input type="text" class="form-control" id="published_at" placeholder="Publish at..." name="published_at" value="{{ isset($post) ? $post->published_at : '' }}" >
 					{{-- value="{{ isset($post) ? $post->name : '' }}"  --}}
 
 					{{-- <div class="input-group date" id="reservationdate" data-target-input="nearest">
-						<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate">
+						<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ isset($post) ? $post->published_at : '' }}">
 						<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 								<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						</div>
 				</div> --}}
 				</div>
 
+				@if (isset($post))
+					<div class="form-group">
+						<img src="{{ asset($post->image) }}" alt="" style="width:100%;">
+					</div>
+				@endif
+
 				<div class="form-group">
 					<label for="image">Image</label>
-					<input type="file" class="form-control" id="image" name="image" placeholder="Enter post Name"  >
+					<input type="file" class="form-control" id="image" name="image" placeholder="Enter post Name" value="{{ isset($post) ? $post->image : '' }}"  >
 					{{-- value="{{ isset($post) ? $post->name : '' }}" --}}
 				</div>
 
 				<div class="form-group">
+					<label for="category">Category</label>
+					<select name="category" id="category" class="form-control">
+						@foreach ($categories as $category)
+							<option value="{{ $category->id }}"
+								@if (isset($post))
+									@if ($category->id === $post->category_id)
+										selected
+									@endif
+								@endif
+							>
+								{{ $category->name }}
+							</option>
+						@endforeach
+					</select>
+				</div>
+
+				@if ($tags->count() > 0)
+					<div class="form-group">
+						<label for="tags">Tags</label>
+
+						<select name="tags[]" id="tags" class="form-control" multiple>
+							@foreach ($tags as $tag)
+								<option value="{{ $tag->id }}"
+									@if (isset($post))
+										@if ($post->hasTag($tag->id))
+											selected
+										@endif
+									@endif
+								>
+									{{ $tag->name }}
+								</option>
+							@endforeach
+						</select>
+					</div>
+
+					{{-- <div class="form-group" data-select2-id="42">
+						<label>Multiple</label>
+						<select class="select2 select2-hidden-accessible" multiple="" data-placeholder="Select a State" style="width: 100%;" data-select2-id="7" tabindex="-1" aria-hidden="true">
+							<option data-select2-id="33">Alabama</option>
+							<option data-select2-id="34">Alaska</option>
+							<option data-select2-id="35">California</option>
+							<option data-select2-id="36">Delaware</option>
+							<option data-select2-id="37">Tennessee</option>
+							<option data-select2-id="38">Texas</option>
+							<option data-select2-id="39">Washington</option>
+						</select><span class="select2 select2-container select2-container--default select2-container--focus select2-container--above" dir="ltr" data-select2-id="8" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Alaska" data-select2-id="47"><span class="select2-selection__choice__remove" role="presentation">×</span>Alaska</li><li class="select2-selection__choice" title="California" data-select2-id="48"><span class="select2-selection__choice__remove" role="presentation">×</span>California</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+					</div> --}}
+				@endif
+
+				<div class="form-group">
 					<button type="submit" class="btn btn-success">
-						Add Post
-						{{-- {{ isset($post) ? 'Update Post' : 'Add Post' }} --}}
+						{{-- Add Post --}}
+						{{ isset($post) ? 'Update Post' : 'Add Post' }}
 					</button>
 				</div>
 			</form>
@@ -105,14 +149,19 @@
 {{-- <script src="{{ asset('/plugins/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
 <script src="{{ asset('/plugins/jquery/jquery.min.js') }}" ></script> --}}
 {{-- <script src="{{ asset('/plugins/daterangepicker/daterangepicker.js') }}" ></script> --}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
-	flatpickr('#published_at')
+	flatpickr('#published_at', {
+		enableTime: true,
+		enableSeconds: true
+	})
 </script>
 @endsection
 
 @section('styles')
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css">
 {{-- <link href="{{ asset('/dist/css/adminlte.min.css') }}" rel="stylesheet">
 <link href="{{ asset('/plugins/summernote/summernote-bs4.css') }}" rel="stylesheet"> --}}
 {{-- <link href="{{ asset('/plugins/icheck-bootstrap/icheck-bootstrap.min.css') }}" rel="stylesheet"> --}}

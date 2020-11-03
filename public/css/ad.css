@@ -11222,3 +11222,11 @@ body.sidebar-toggled footer.sticky-footer {
   width: 100%;
 }
 
+
+svg:not(:root).svg-inline--fa {
+  overflow: visible;
+}
+.svg-inline--fa.fa-w-16 {
+  width: 2em;
+  color: #71cd14;
+}
