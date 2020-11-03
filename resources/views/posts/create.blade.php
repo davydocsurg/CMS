@@ -48,8 +48,8 @@
 					<label for="content">Content</label>
 					<textarea name="content" id="content" class="form-control" cols="5" placeholder="Enter post Content" rows="5" >{{ isset($post) ? $post->content : '' }}</textarea>
 
-					{{-- <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : '' }}" id="content" class="form-control">
-  				<trix-editor input="content" ></trix-editor>  --}}
+					{{-- <input id="content" type="hidden" name="content" value="{{ isset($post) ? $post->content : '' }}"  class="form-control">
+  				<trix-editor input="content" ></trix-editor> --}}
 				</div>
 
 				<div class="form-group">
@@ -57,12 +57,13 @@
 					<input type="text" class="form-control" id="published_at" placeholder="Publish at..." name="published_at" value="{{ isset($post) ? $post->published_at : '' }}" >
 					{{-- value="{{ isset($post) ? $post->name : '' }}"  --}}
 
+
 					{{-- <div class="input-group date" id="reservationdate" data-target-input="nearest">
 						<input type="text" class="form-control datetimepicker-input" data-target="#reservationdate" value="{{ isset($post) ? $post->published_at : '' }}">
 						<div class="input-group-append" data-target="#reservationdate" data-toggle="datetimepicker">
 								<div class="input-group-text"><i class="fa fa-calendar"></i></div>
 						</div>
-				</div> --}}
+					</div> --}}
 				</div>
 
 				@if (isset($post))
@@ -113,18 +114,6 @@
 						</select>
 					</div>
 
-					{{-- <div class="form-group" data-select2-id="42">
-						<label>Multiple</label>
-						<select class="select2 select2-hidden-accessible" multiple="" data-placeholder="Select a State" style="width: 100%;" data-select2-id="7" tabindex="-1" aria-hidden="true">
-							<option data-select2-id="33">Alabama</option>
-							<option data-select2-id="34">Alaska</option>
-							<option data-select2-id="35">California</option>
-							<option data-select2-id="36">Delaware</option>
-							<option data-select2-id="37">Tennessee</option>
-							<option data-select2-id="38">Texas</option>
-							<option data-select2-id="39">Washington</option>
-						</select><span class="select2 select2-container select2-container--default select2-container--focus select2-container--above" dir="ltr" data-select2-id="8" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--multiple" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="-1" aria-disabled="false"><ul class="select2-selection__rendered"><li class="select2-selection__choice" title="Alaska" data-select2-id="47"><span class="select2-selection__choice__remove" role="presentation">×</span>Alaska</li><li class="select2-selection__choice" title="California" data-select2-id="48"><span class="select2-selection__choice__remove" role="presentation">×</span>California</li><li class="select2-search select2-search--inline"><input class="select2-search__field" type="search" tabindex="0" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false" role="searchbox" aria-autocomplete="list" placeholder="" style="width: 0.75em;"></li></ul></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
-					</div> --}}
 				@endif
 
 				<div class="form-group">
@@ -153,8 +142,8 @@
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script>
 	flatpickr('#published_at', {
-		enableTime: true,
-		enableSeconds: true
+		enableTime: true
+		// enableSeconds: true
 	})
 </script>
 @endsection
