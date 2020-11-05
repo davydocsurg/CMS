@@ -31,6 +31,7 @@
 						<th scope="col">Image</th>
 						<th scope="col">Title</th>
 						<th scope="col">Category</th>
+						{{-- <th scope="col">Tags</th> --}}
 						<th scope="col">Edit</th>
 						<th scope="col">Delete</th>
 					</tr>
@@ -42,14 +43,15 @@
 								{{ $post->id }}.
 							</td>
 							<td>
-								<img src="{{ $post->image }}" width="50%" height="50%" alt="" srcset="">
+								<img src="{{ $post->image }}" style="width: 10rem" height="50%" alt="" srcset="">
 							</td>
 							<td>{{ $post->title }}</td>
 							<td>
-								<a href="{{ route('categories.edit', $post->category->id) }}" class=" btn btn-warning btn-sm" style="font-style: italic; font-family:Arial, Helvetica, sans-serif">
-									{{ $post->category->name }}
+								<a href="{{ route('categories.edit', $post->category->id) }}" class=" btn btn-warning btn-sm " style="font-style: italic; font-family:Arial, Helvetica, sans-serif">
+									<b>{{ $post->category->name }}</b>
 								</a>
 							</td>
+
 							@if (!$post->trashed())
 								<td>
 									<a class="btn btn-info btn-sm" href="{{ route('post.edit', $post->id) }}"><i class="far fa-edit"></i>

@@ -133,15 +133,33 @@
     <footer class="footer-area section_gap">
       <div class="container">
         <div class="row">
+          <div class="col-lg-4 col-md-6 single-footer-widget float-right">
+            <h4>Newsletter</h4>
+            <p>You can trust us. we only send promo offers,</p>
+            <div class="form-wrap" id="mc_embed_signup">
+              <form target="_blank" action=""
+                method="get" class="form-inline">
+                <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''"
+                  onblur="this.placeholder = 'Your Email Address '" required="" type="email">
+                <button class="click-btn btn btn-default">Subscribe</button>
+                <div style="position: absolute; left: -5000px;">
+                  <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                </div>
 
+                <div class="info"></div>
+              </form>
+            </div>
+          </div>
 
         </div>
         <div class="footer-bottom row align-items-center">
           <div class="col-lg-4 col-md-12 footer-social">
-            <a href="#"><i class="fab fa-facebook"></i></a>
+            <br><br><br>
+            <div class="addthis_inline_share_toolbox"></div>
+            {{-- <a href="#"><i class="fab fa-facebook"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
             <a href="#"><i class="fab fa-dribbble"></i></a>
-            <a href="#"><i class="fab fa-behance"></i></a>
+            <a href="#"><i class="fab fa-behance"></i></a> --}}
           </div>
         </div>
       </div>
@@ -167,6 +185,10 @@
     <script src="{{ asset('css/vendors/jquery-ui/jquery-ui.js') }}"></script>
     <script src="{{ asset('js/welcome/theme.js') }}"></script>
     <script src="{{ asset('fontawesome-free/css/all.min.css') }}"></script>
+    <script id="dsq-count-scr" src="//blogcms-4.disqus.com/count.js" async></script>
+    {{-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fa1eab8c3aaa4cf"></script> --}}
+    <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fa1eab8c3aaa4cf"></script>
+
 </body>
 
 </html>

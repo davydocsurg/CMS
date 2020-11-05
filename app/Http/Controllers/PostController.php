@@ -33,7 +33,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index')->with('posts', Post::latest()->get());
+        return view('posts.index')->with('posts', Post::latest()->get())->with('tags', Tag::latest()->get());
     }
 
     /**
@@ -45,6 +45,7 @@ class PostController extends Controller
     {
         return view('posts.create')->with('categories', Category::all())->with('tags', Tag::all());
     }
+    // ->with('post', $post)
 
     /**
      * Store a newly created resource in storage.
@@ -77,7 +78,8 @@ class PostController extends Controller
             'published_at' => $request->published_at,
             'image' => $image,
             'user_id' => auth()->user()->id,
-            'category_id' => $request->category
+            'category_id' => $request->category,
+            // 'post-trixFields' => request('post-trixFields'),
         ]);
 
         if ($request->tags) {

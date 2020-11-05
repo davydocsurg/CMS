@@ -19,6 +19,9 @@
           <div class="mb-3 mb-md-0">
             <h2>Blog Details</h2>
             <p>Very us move be blessed multiply night</p>
+
+            <br><br><br>
+            <div class="addthis_inline_share_toolbox"></div>
           </div>
           <div class="page_link">
             <a href="{{ route('welcome') }}">Home</a>
@@ -46,19 +49,24 @@
                         </h2>
                         <p>{{ $post->description }}</p>
 
+                        <hr>
+
+                        <p class="excert">
+
+                          {!! $post->content !!}
+
+                        </p>
+                        <hr>
                         <ul class="blog-info-link mt-3 mb-4">
                             <li><a href="#">
                               {{-- <i class="fas fa-user-tie"></i>  --}}
                               <img src="{{ asset($post->user->avatar) }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem">
                               {{ $post->user->name }}
                             </a></li>
-                            <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li>
+                            {{-- <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li> --}}
+
                           </ul>
-                        <p class="excert">
 
-                          {!! $post->content !!}
-
-                        </p>
 
                         {{-- <div class="quote-wrapper">
                           <div class="quotes">
@@ -70,15 +78,12 @@
                 </div>
                 <div class="navigation-top">
                   <div class="d-sm-flex justify-content-between text-center">
-                    <p class="like-info"><span class="align-middle"><i class="fas fa-heart"></i></span> Lily and 4 people like this</p>
+                    {{-- <p class="like-info"><span class="align-middle"><i class="fas fa-heart"></i></span> Lily and 4 people like this</p> --}}
                     <div class="col-sm-4 text-center my-2 my-sm-0">
-                      <p class="comment-count"><span class="align-middle"><i class="fas fa-comments"></i></span> 06 Comments</p>
+                      {{-- <p class="comment-count"><span class="align-middle"><i class="fas fa-comments"></i></span> 06 Comments</p> --}}
                     </div>
                     <ul class="social-icons">
-                      <li><a href="#"><i class="fab fa-facebook"></i></a></li>
-                      <li><a href="#"><i class="fab fa-twitter"></i></a></li>
-                      <li><a href="#"><i class="fab fa-dribbble"></i></a></li>
-                      <li><a href="#"><i class="fab fa-wordpress"></i></a></li>
+                      <div class="addthis_inline_share_toolbox_wcri float-right"></div>
                     </ul>
                   </div>
 
@@ -95,7 +100,7 @@
                                       <span class="ti-arrow-left text-white"></span>
                                   </a>
                               </div>
-                              <div class="detials">
+                            <div class="detials">
                                   <p>Prev Post</p>
                                   <a href="#" class="disabled">
                                       <h4>Space The Final Frontier</h4>
@@ -123,7 +128,7 @@
                       </div>
                     </div> --}}
 
-                    {{-- {{ $post->links() }} --}}
+                    {{ $posts->appends(['search' =>request()->query('search')])->links() }}
                   </div>
 
 
@@ -139,9 +144,9 @@
                   </div>
                 </div>
 
-                <div class="comments-area">
+                {{-- <div class="comments-area">
                     <h4>05 Comments</h4>
-                    {{-- <div class="comment-list">
+                    <div class="comment-list">
                       <div class="single-comment justify-content-between d-flex">
                         <div class="user justify-content-between d-flex">
                             <div class="thumb">
@@ -168,10 +173,31 @@
                             </div>
                         </div>
                     </div>
+                  </div>
                     </div> --}}
 
-                </div>
-                <div class="comment-form">
+                <div id="disqus_thread"></div>
+                    <script>
+
+                    /**
+                    *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+                    *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+
+                    var disqus_config = function () {
+                    this.page.url = "{{ config('app.url') }}/blog/post/{{ $post->id }}#disqus_thread";  // Replace PAGE_URL with your page's canonical URL variable
+                    this.page.identifier = "{{ $post->id }}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+                    };
+
+                    (function() { // DON'T EDIT BELOW THIS LINE
+                    var d = document, s = d.createElement('script');
+                    s.src = 'https://blogcms-4.disqus.com/embed.js';
+                    s.setAttribute('data-timestamp', +new Date());
+                    (d.head || d.body).appendChild(s);
+                    })();
+                    </script>
+                    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+
+                {{-- <div class="comment-form">
                     <h4>Leave a Reply</h4>
                     <form class="form-contact comment_form" action="#" id="commentForm">
                       <div class="row">
@@ -200,7 +226,7 @@
                         <button type="submit" class="main_btn">Send Message</button>
                       </div>
                     </form>
-                </div>
+                </div> --}}
             </div>
             @include('partials.sidebar')
         </div>

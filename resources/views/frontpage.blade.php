@@ -53,18 +53,18 @@
                             </div>
 
                             <div class="blog_details">
-                                <a class="d-inline-block" href="{{ route('blog.show', $post->id) }}">
+                                <a class="d-inline-block" href="{{ route('blog.show', $post->id) }}#disqus_thread">
                                     <h2>{{ $post->title }}</h2>
                                     <p>{{ substr($post->description,0,220) }}...</p>
                                     <p class="btn btn-link">Read More <i class="fas fa-book-reader"></i></p>
                                 </a>
                                 <ul class="blog-info-link">
-                                <li><a href="#">
+                                <li><a href="">
                                     {{-- <i class="fas fa-user-tie"></i>  --}}
                                     <img src="{{ $post->user->avatar }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem">
                                     {{ $post->user->name }}
                                 </a></li>
-                                <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li>
+                                {{-- <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li> --}}
                                 </ul>
                             </div>
                         </article>

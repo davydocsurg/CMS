@@ -8,7 +8,7 @@
                   <div class="input-group mb-3">
                     <input type="text" class="form-control" name="search" placeholder="Search Post Title" value="{{ request()->query('search') }}">
                     <div class="input-group-append">
-                      <button class="btn" type="button"><i class="fas fa-search"></i></button>
+                      <button class="btn" type="submit"><i class="fas fa-search"></i></button>
                     </div>
                   </div>
                 </div>

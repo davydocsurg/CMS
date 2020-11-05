@@ -4,12 +4,14 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Te7aHoudini\LaravelTrix\Traits\HasTrixRichText;
 
 class Post extends Model
 {
 
-    use SoftDeletes;
+    use SoftDeletes, HasTrixRichText;
 
+    protected $guarded = [];
     protected $dates = [
         'published_at'
     ];

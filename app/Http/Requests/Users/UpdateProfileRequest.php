@@ -25,6 +25,7 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required',
+            // 'avatar' => 'required|avatar',
             'about' => 'required'
         ];
     }

@@ -24,7 +24,7 @@
             <div class="page_link">
               <a href="{{ route('welcome') }}">Home</a>
               {{-- <a href="{{ route('blog.show', $post->id) }}">Blog Details</a> --}}
-              <a href="{{ route('blog.category', $category->id) }}">Blog </a>
+              <a href="{{ route('blog.category', $category->id) }}">Category: {{ $category->name }} </a>
             </div>
           </div>
         </div>
@@ -67,7 +67,7 @@
                                 <img src="{{ asset($post->user->avatar) }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem">
                                 {{ $post->user->name }}
                             </a></li>
-                            <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li>
+                            {{-- <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li> --}}
                             </ul>
                         </div>
                     </article>

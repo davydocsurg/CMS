@@ -22,6 +22,10 @@
 	<link href="{{ asset('css/navy.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/ad2.css') }}" rel="stylesheet">
 
+	{{-- <link rel="stylesheet" href="{{ asset('css/select2.css') }}"> --}}
+	{{-- <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}"> --}}
+	{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> --}}
+
 	{{-- <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}"> --}}
 
 	@yield('styles')
@@ -457,6 +461,7 @@
 	{{-- <script src="{{ asset('js/demo/chart-area-demo.js') }}" ></script> --}}
 	{{-- <script src="{{ asset('js/demo/chart-pie-demo.js') }}" ></script> --}}
 	<script src="{{ asset('js/sb-admin-2.min.js') }}" ></script>
+	{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> --}}
 
 </body>
 

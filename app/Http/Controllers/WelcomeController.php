@@ -30,7 +30,7 @@ class WelcomeController extends Controller
         return view('frontpage')
             ->with('categories', Category::all())
             ->with('tags', Tag::all())
-            ->with('posts', Post::searched()->latest()->simplePaginate(3));
+            ->with('posts', Post::searched()->latest()->simplePaginate(2));
     }
 }
 
