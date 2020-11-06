@@ -62,7 +62,8 @@ return [
         //         PDO::MYSQL_ATTR_SSL_CA => env('MYSQL_ATTR_SSL_CA'),
         //     ]) : [],
         // ],
-           'mysql' => [
+
+        'mysql' => [
             'driver' => 'mysql',
             'host' => 'db4free.net',
             'port' => '3306',

@@ -8,25 +8,32 @@ use App\Http\Requests\Users\UpdateProfileRequest;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
+use Auth;
 
 class UsersController extends Controller
 {
     public function index()
     {
-        return view('users.index')->with('users', User::latest()->get());
+        return view('users.index')->with('users', User::where('id', '!=', Auth::user()->id)->simplePaginate(5));
     }
 
-    public function edit()
+    public function editUser()
     {
         return view('users.edit')->with('user', auth()->user());
     }
 
-    public function update(UpdateProfileRequest $request, User $user)
+    public function updateUser(UpdateProfileRequest $request, User $user)
     {
 
-        $user = auth()->user();
+        // $user = auth()->user();
 
-        $data = $request->only(['name', 'about']);
+        // $data = $request->only(['name', 'about']);
+
+        $user->update([
+            'name' => $request->name,
+            'avatar' => $request->avatar,
+            'about' => $request->about
+        ]);
 
         // check if there's a new image
         if ($request->hasFile('avatar')) {
@@ -35,17 +42,11 @@ class UsersController extends Controller
             $url = URL::to("/"). '/prof/'. $file->
             getClientOriginalName();
 
-            $data['avatar'] = $url;
+            // $data['avatar'] = $url;
+            $avatar = $url;
         }
-        // $avatar = $url;
 
-        // $user->update([
-        //     'name' => $request->name,
-        //     'avatar' => $avatar,
-        //     'about' => $request->about
-        // ]);
-
-        $user->update($data);
+        $user->update();
         // $data->save();
 
         \session()->flash('success', 'Profile Updated sucessfully');
@@ -62,4 +63,15 @@ class UsersController extends Controller
         // session()->floor('success', 'Admin role set sucessfully');
         return redirect(route('users.index'));
     }
+
+    public function removeAdmin(user $user)
+    {
+        $user->role = 'writer';
+        $user->save();
+
+        \session()->flash('success', 'Admin role removed, Writer role set successfully');
+        // session()->floor('success', 'Admin role set sucessfully');
+        return redirect(route('users.index'));
+    }
+
 }

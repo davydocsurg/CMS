@@ -6,7 +6,7 @@
 		<div class="card-header bg-dark">
 			{{-- <div class="card-title"> --}}
 				<div class="float-left">
-					tag
+					<b>Tags</b>
 				</div>
 				<div class="float-right">
 					<a class="float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

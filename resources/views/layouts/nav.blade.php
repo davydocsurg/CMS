@@ -219,10 +219,13 @@
 
 							<!-- Topbar Search -->
 							<form
-									class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search">
+									class="d-none d-sm-inline-block form-inline mr-auto ml-md-3 my-2 my-md-0 mw-100 navbar-search"
+									method="GET"
+									>
 									<div class="input-group">
 											<input type="text" class="form-control bg-light border-0 small"
-													placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2">
+													placeholder="Search for..." aria-label="Search" aria-describedby="basic-addon2"
+													value="{{ request()->query('search') }}">
 											<div class="input-group-append">
 													<button class="btn btn-secondary" type="button">
 															<i class="fas fa-search fa-sm"></i>
@@ -337,43 +340,6 @@
 																	<div class="small text-gray-500">Emily Fowler · 58m</div>
 															</div>
 													</a>
-													<a class="dropdown-item d-flex align-items-center" href="#">
-															<div class="dropdown-list-image mr-3">
-																	<img class="rounded-circle"
-																			src="https://source.unsplash.com/AU4VPcFN4LE/60x60" alt="">
-																	<div class="status-indicator"></div>
-															</div>
-															<div>
-																	<div class="text-truncate">I have the photos that you ordered last month,
-																			how would you like them sent to you?</div>
-																	<div class="small text-gray-500">Jae Chun · 1d</div>
-															</div>
-													</a>
-													<a class="dropdown-item d-flex align-items-center" href="#">
-															<div class="dropdown-list-image mr-3">
-																	<img class="rounded-circle"
-																			src="https://source.unsplash.com/CS2uCrpNzJY/60x60" alt="">
-																	<div class="status-indicator bg-warning"></div>
-															</div>
-															<div>
-																	<div class="text-truncate">Last month's report looks great, I am very happy
-																			with the progress so far, keep up the good work!</div>
-																	<div class="small text-gray-500">Morgan Alvarez · 2d</div>
-															</div>
-													</a>
-													<a class="dropdown-item d-flex align-items-center" href="#">
-															<div class="dropdown-list-image mr-3">
-																	<img class="rounded-circle"
-																			src="https://source.unsplash.com/Mv9hjnEUHR4/60x60" alt="">
-																	<div class="status-indicator bg-success"></div>
-															</div>
-															<div>
-																	<div class="text-truncate">Am I a good boy? The reason I ask is because
-																			someone told me that people say this to all dogs, even if they aren't
-																			good...</div>
-																	<div class="small text-gray-500">Chicken the Dog · 2w</div>
-															</div>
-													</a>
 													<a class="dropdown-item text-center small text-gray-500" href="#">Read More
 															Messages</a>
 											</div>
@@ -433,16 +399,40 @@
 					</nav>
 					<main class="py-4 px-4">
 						@if (session()->has('success'))
-							<div class="alert alert-success">
+							<div class="alert alert-success alert-dismissible fade show" role="alert">
 								{{ session()->get('success') }}
+								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
 							</div>
 						@endif
 
 						@if (session()->has('error'))
-							<div class="alert alert-danger">
+							<div class="alert alert-danger alert-dismissible fade show">
 								{{ session()->get('error') }}
+								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
 							</div>
 						@endif
+
+						@if (session()->has('cat-warning'))
+							<div class="alert alert-warning alert-dismissible fade show">
+								<h4 class="alert-heading font-weight-semi-bold">Warning!</h4>
+								<p>{{ session()->get('cat-warning') }}</p>
+								<hr>
+								<p class="mb-0">You need to remove posts associated with this category before you can delete it.</p>
+								<hr>
+								<p class="mb-0"><h2>Nwaegerue Chimeremeze do u believe me now?</h2> <hr> <img src="{{ asset('images/nwa.jpg') }}" alt="" srcset=""></p>
+								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+							</div>
+						@endif
+
+						@if (session()->has('tag-warning'))
+						<div class="alert alert-warning alert-dismissible fade show">
+							<h4 class="alert-heading font-weight-semi-bold">Warning!</h4>
+							<p>{{ session()->get('tag-warning') }}</p>
+							<hr>
+							<p class="mb-0">You need to remove posts associated with this tag before you can delete it.</p>
+							<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+						</div>
+					@endif
 						@yield('content')
 					</main>
 			</div>

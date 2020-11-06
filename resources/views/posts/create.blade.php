@@ -51,10 +51,8 @@
 
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea name="content" id="content" class="form-control" cols="5"
-                                placeholder="Enter post Content"
-																rows="5">{{ isset($post) ? $post->content : '' }}
-														</textarea>
+                            <textarea name="content" id="content" class="form-control" cols="5" rows="5"
+                                placeholder="Enter post Content">{{ isset($post) ? $post->content : '' }}</textarea>
 
 																{{-- @trix(\App\Post::class, 'content')
 																<input type="submit"> --}}
@@ -66,9 +64,9 @@
 
 																{!! app('laravel-trix')->make($post, 'content') !!} --}}
 
-                            <input id="content" type="hidden" name="content"
+                            {{-- <input id="content" type="hidden" name="content"
                                 value="{{ isset($post) ? $post->content : '' }}" class="form-control">
-                            <trix-editor input="content"></trix-editor>
+                            <trix-editor input="content"></trix-editor> --}}
                         </div>
 
                         <div class="form-group">

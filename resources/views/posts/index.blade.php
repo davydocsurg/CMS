@@ -6,7 +6,7 @@
 		<div class="card-header bg-dark">
 			{{-- <div class="card-title"> --}}
 				<div class="float-left">
-					Posts
+					<b>Posts</b>
 				</div>
 				<div class="float-right">
 					<a class="float-right " href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -84,6 +84,8 @@
 				<h3>No posts</h3>
 			@endif
 		</div>
+
+		{{-- <div class="card-footer bg-dark">{{ $posts->appends(['search' =>request()->query('search')])->links() }}</div> --}}
 	</div>
 </div>
 @endsection

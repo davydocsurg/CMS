@@ -23,9 +23,17 @@ Auth::routes();
 
 Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('users', 'UsersController@index')->name('users.index');
-    Route::get('users/profile', 'UsersController@edit')->name('users.edit_profile');
-    Route::put('users/profile', 'UsersController@update')->name('users.update_profile');
+    Route::get('users/profile', 'UsersController@editUser')->name('users.edit_profile');
+    Route::put('users/profile', 'UsersController@updateUser')->name('users.update_profile');
     Route::post('users/{user}/make_admin', 'UsersController@makeAdmin')->name('users.make_admin');
+    Route::post('users/{user}/remove_admin', 'UsersController@removeAdmin')->name('users.remove_admin');
+    //
+    // Route::get('user', 'UsersController@create')->name('user.createNew');
+    // Route::post('user', 'UsersController@store')->name('user.storeNew');
+    // Route::get('user/{user}/editNew', 'UsersController@edit')->name('user.editNew');
+    // Route::post('user/{user}', 'UsersController@update')->name('user.update');
+
+    Route::resource('/user', 'Admin\AdminController');
 });
 
 Route::middleware(['auth'])->group(function() {

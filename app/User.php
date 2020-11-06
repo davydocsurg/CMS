@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+// use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -37,9 +38,19 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function isAdmin(Type $var = null)
+    public function isAdmin()
     {
         return $this->role === 'admin';
+    }
+
+    public function isLoggedIn()
+    {
+        return $user = auth()->user();
+    }
+
+    public function isWriter()
+    {
+        return $this->role === 'writer';
     }
 
     public function posts()

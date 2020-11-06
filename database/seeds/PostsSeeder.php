@@ -36,7 +36,7 @@ class PostsSeeder extends Seeder
         ]);
 
         $category1 = Category::create([
-            'name' => 'News'
+            'name' => 'Dogs'
         ]);
 
         $category2 = Category::create([
@@ -63,12 +63,16 @@ class PostsSeeder extends Seeder
             'name' => 'record'
         ]);
 
+        $tag4 = Tag::create([
+            'name' => 'dogs'
+        ]);
+
         $post1 = $author2->posts()->create([
             'title' => 'Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...',
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
             'category_id' => $category1->id,
-            'image' => 'images/1.png'
+            'image' => 'images/3-fullbody.jpg'
         ]);
 
         $post2 = $author1->posts()->create([
@@ -76,7 +80,7 @@ class PostsSeeder extends Seeder
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
             'category_id' => $category2->id,
-            'image' => 'images/2.png'
+            'image' => 'images/welcome/blog/cat-post/cat-post-1.jpg'
         ]);
 
         $post3 = $author2->posts()->create([
@@ -84,7 +88,7 @@ class PostsSeeder extends Seeder
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
             'category_id' => $category3->id,
-            'image' => 'images/3.jpg'
+            'image' => 'images/welcome/login.jpg'
         ]);
 
         $post4 = $author1->posts()->create([
@@ -92,11 +96,21 @@ class PostsSeeder extends Seeder
             'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
             'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
             'category_id' => $category2->id,
-            'image' => 'images/4.jpg'
+            'image' => 'images/welcome/elements/g4.jpg'
         ]);
 
-        $post1->tags()->attach([$tag1->id, $tag3->id]);
+        $post5 = $author2->posts()->create([
+            'title' => 'Chinese Shar Pei...',
+            'description' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.',
+            'content' => 'It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout. The point of using Lorem Ipsum is that it has a more-or-less normal distribution of letters, as opposed to using \'Content here, content here\', making it look like readable English. Many desktop publishing packages and web page editors now use Lorem Ipsum as their default model text, and a search for \'lorem ipsum\' will uncover many web sites still in their infancy. Various versions have evolved over the years, sometimes by accident, sometimes on purpose (injected humour and the like).',
+            'category_id' => $category1->id,
+            'image' => 'images/32941854-chinese-shar-pei-sitting-isolated-on-white-background.jpg'
+        ]);
+
+        $post1->tags()->attach([$tag1->id, $tag4->id]);
         $post2->tags()->attach([$tag3->id, $tag2->id]);
         $post3->tags()->attach([$tag2->id, $tag1->id]);
+        $post4->tags()->attach([$tag2->id, $tag3->id]);
+        $post5->tags()->attach([$tag4->id, $tag1->id]);
     }
 }

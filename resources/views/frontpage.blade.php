@@ -42,9 +42,11 @@
                         <article class="blog_item">
                             <div class="blog_item_img">
                             <img class="card-img rounded-0" src="{{ asset($post->image) }}" alt="">
+                            {{-- @foreach ($categories as $category) --}}
                             <a href="#" class="blog_item_date">
-                                <h3>{{ $post->category->name }}</h3>
-                            </a>
+                              <h3>{{ $post->category->name }}</h3>
+                          </a>
+                            {{-- @endforeach --}}
 
                             {{-- <a href="#" class="blog_item_date" style="margin-right: 200px !important;">
                                 <h3>15</h3>

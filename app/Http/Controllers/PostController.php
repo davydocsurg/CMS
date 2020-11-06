@@ -33,7 +33,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index')->with('posts', Post::latest()->get())->with('tags', Tag::latest()->get());
+        return view('posts.index')->with('posts', Post::latest()->get())
+        ->with('tags', Tag::latest()->get());
     }
 
     /**
