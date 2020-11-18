@@ -418,8 +418,8 @@
 								<p>{{ session()->get('cat-warning') }}</p>
 								<hr>
 								<p class="mb-0">You need to remove posts associated with this category before you can delete it.</p>
-								<hr>
-								<p class="mb-0"><h2>Nwaegerue Chimeremeze do u believe me now?</h2> <hr> <img src="{{ asset('images/nwa.jpg') }}" alt="" srcset=""></p>
+								{{-- <hr> --}}
+								{{-- <p class="mb-0"><h2>Nwaegerue Chimeremeze do u believe me now?</h2> <hr> <img src="{{ asset('images/nwa.jpg') }}" alt="" srcset=""></p> --}}
 								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
 							</div>
 						@endif
