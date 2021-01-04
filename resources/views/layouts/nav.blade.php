@@ -22,6 +22,9 @@
 	<link href="{{ asset('css/navy.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/ad2.css') }}" rel="stylesheet">
 
+	{{-- toasts --}}
+	<link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
+
 	{{-- <link rel="stylesheet" href="{{ asset('css/select2.css') }}"> --}}
 	{{-- <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}"> --}}
 	{{-- <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" /> --}}
@@ -398,41 +401,43 @@
 
 					</nav>
 					<main class="py-4 px-4">
-						@if (session()->has('success'))
-							<div class="alert alert-success alert-dismissible fade show" role="alert">
+						{{-- @if (session()->has('success')) --}}
+							{{-- toastr.success('{{ session()->get('success') }}') --}}
+							{{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
 								{{ session()->get('success') }}
 								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
-							</div>
-						@endif
+							</div> --}}
+						{{-- @endif --}}
 
-						@if (session()->has('error'))
+						{{-- @if (session()->has('error'))
 							<div class="alert alert-danger alert-dismissible fade show">
 								{{ session()->get('error') }}
 								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
 							</div>
-						@endif
+						@endif --}}
 
-						@if (session()->has('cat-warning'))
+						{{-- @if (session()->has('cat-warning'))
 							<div class="alert alert-warning alert-dismissible fade show">
 								<h4 class="alert-heading font-weight-semi-bold">Warning!</h4>
 								<p>{{ session()->get('cat-warning') }}</p>
-								<hr>
-								<p class="mb-0">You need to remove posts associated with this category before you can delete it.</p>
+								<hr> --}}
+								{{-- <p class="mb-0">You need to remove posts associated with this category before you can delete it.</p> --}}
 								{{-- <hr> --}}
 								{{-- <p class="mb-0"><h2>Nwaegerue Chimeremeze do u believe me now?</h2> <hr> <img src="{{ asset('images/nwa.jpg') }}" alt="" srcset=""></p> --}}
+								{{-- <button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
+							</div>
+						@endif --}}
+
+						{{-- @if (session()->has('tag-warning'))
+							<div class="alert alert-warning alert-dismissible fade show">
+								<h4 class="alert-heading font-weight-semi-bold">Warning!</h4>
+								<p>{{ session()->get('tag-warning') }}</p>
+								<hr>
+								<p class="mb-0">You need to remove posts associated with this tag before you can delete it.</p>
 								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
 							</div>
-						@endif
-
-						@if (session()->has('tag-warning'))
-						<div class="alert alert-warning alert-dismissible fade show">
-							<h4 class="alert-heading font-weight-semi-bold">Warning!</h4>
-							<p>{{ session()->get('tag-warning') }}</p>
-							<hr>
-							<p class="mb-0">You need to remove posts associated with this tag before you can delete it.</p>
-							<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
-						</div>
-					@endif
+						@endif --}}
+						
 						@yield('content')
 					</main>
 			</div>
@@ -452,6 +457,33 @@
 	{{-- <script src="{{ asset('js/demo/chart-pie-demo.js') }}" ></script> --}}
 	<script src="{{ asset('js/sb-admin-2.min.js') }}" ></script>
 	{{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script> --}}
+
+	{{-- toasts --}}
+	<script src="{{ asset('js/toastr.min.js') }}"></script>
+
+	<script>
+		@if (session()->has('success'))
+			toastr.success('{{ session()->get('success') }}')
+		@endif
+	</script>
+
+	<script>
+		@if (session()->has('cat-warning'))
+			toastr.warning('{{ session()->get('cat-warning') }}<hr/><small>You need to remove posts associated with this category before you can delete it.</small>')
+			@endif
+	</script>
+
+	<script>
+		@if (session()->has('error'))
+			toastr.danger('{{ session()->get('error') }}')
+		@endif
+	</script>
+
+	<script>
+		@if (session()->has('tag-warning'))
+			toastr.warning('{{ session()->get('tag-warning') }}<hr/><small>You need to remove posts associated with this tag before you can delete it.</small>')
+		@endif
+	</script>
 
 </body>
 

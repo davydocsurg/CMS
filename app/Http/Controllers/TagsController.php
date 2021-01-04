@@ -94,7 +94,7 @@ class TagsController extends Controller
     {
 
         if ($tag->posts->count() > 0) {
-            session()->flash('tag-warning', 'Tag can\'t be deleted because it\'s associated some posts!.');
+            session()->flash('tag-warning', 'Tag can\'t be deleted because it\'s associated with some posts!.');
             return redirect()->back();
         }
 
