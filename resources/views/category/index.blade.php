@@ -68,7 +68,7 @@
 								<p class="text-bold">
 									Are you sure you want to delete this category?
 									<br><br>
-									<h4 class="text-warning">Warning</h4>
+									<h4 class="text-warning"> <i class="fas fa-exclamation-triangle"></i>Warning</h4>
 									<strong class="text-warning">All posts associated with this Category will be deleted automatically.</strong>
 								</p>
 							</div>
