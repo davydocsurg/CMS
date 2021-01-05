@@ -27,7 +27,7 @@ class UpdatePostRequest extends FormRequest
             'title' => 'required',
             'description' => 'required',
             // 'image' => 'required',
-            'category' => 'required',
+            'category_id' => 'required',
             'content' => 'required'
 
         ];

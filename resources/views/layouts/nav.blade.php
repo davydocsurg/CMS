@@ -18,6 +18,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 	<!-- Styles -->
+	
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/navy.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/ad2.css') }}" rel="stylesheet">
@@ -437,7 +438,7 @@
 								<button class="close" type="button" data-dismiss="alert" aria-label="Close"><span class="font-weight-light" aria-hidden="true"><i class="far fa-times-circle"></i></span></button>
 							</div>
 						@endif --}}
-						
+
 						@yield('content')
 					</main>
 			</div>

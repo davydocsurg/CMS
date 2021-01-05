@@ -1,7 +1,7 @@
 @extends('layouts.nav')
 
 @section('content')
-<div class="col-sm-6 col-lg-10 mb-4">
+<div class="col-sm-12 col-lg-12 col-md-12 col-xs-12 mb-4">
 	<div class="card text-white bg-dark">
 		<div class="card-header bg-dark">
 			{{-- <div class="card-title"> --}}

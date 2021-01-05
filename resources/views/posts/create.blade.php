@@ -51,23 +51,9 @@
 
                         <div class="form-group">
                             <label for="content">Content</label>
-                            <textarea name="content" id="content" class="form-control" cols="5" rows="5"
-                                placeholder="Enter post Content">{{ isset($post) ? $post->content : '' }}</textarea>
-
-																{{-- @trix(\App\Post::class, 'content')
-																<input type="submit"> --}}
-
-
-																{{-- @trix($post, 'content')
-
-																{!! $post->trix('content') !!}
-
-																{!! app('laravel-trix')->make($post, 'content') !!} --}}
-
-                            {{-- <input id="content" type="hidden" name="content"
-                                value="{{ isset($post) ? $post->content : '' }}" class="form-control">
-                            <trix-editor input="content"></trix-editor> --}}
+                            <textarea name="content" id="content" class="form-control summernote" cols="5" rows="5" placeholder="Enter post Content">{{ isset($post) ? $post->content : '' }}</textarea>
                         </div>
+
 
                         <div class="form-group">
                             <label for="published_at">Published At</label>
@@ -103,7 +89,7 @@
 
                         <div class="form-group">
                             <label for="category">Category</label>
-                            <select name="category" id="category" class="form-control">
+                            <select name="category_id" id="category" class="form-control">
                                 @foreach ($categories as $category)
                                     <option value="{{ $category->id }}" @if (isset($post))
                                         @if ($category->id === $post->category_id)
@@ -117,37 +103,32 @@
                             </select>
                         </div>
 
-                        @if ($tags->count() > 0)
-                            <div class="form-group">
-															<label for="tags">Tags</label>
-															<select class="js-example-basic-multiple" name="tags[]" multiple>
-																@foreach ($tags as $tag)
-																	<option value="{{ $tag->id }}" @if (isset($post))
-																				@if ($post->hasTag($tag->id))
-																						selected
-																				@endif
-																@endif
-																	>
-																{{ $tag->name }}
-																</option>
-																@endforeach
-															</select>
+                @if ($tags->count() > 0)
+                    <div class="form-group">
+                        <label for="tags">Tags</label>
+                            <div class="row">
+                                @foreach ($tags as $tag)
+                                <div class="col-xs-12 col-sm-12 col-md-4 col-lg-3">
+                                    <div class="checkbox ">
+                                        <label for="">
+                                            <input type="checkbox" name="tags[]" value="{{ $tag->id }}" id=""
+                                                @if (isset($post))
+                                                    @if ($post->hasTag($tag->id))
+                                                        checked
+                                                    @endif
 
-                        {{-- <select name="tags[]" id="tags" class="form-control" multiple>
-                            @foreach ($tags as $tag)
-                                <option value="{{ $tag->id }}" @if (isset($post))
-                                    @if ($post->hasTag($tag->id))
-                                        selected
-                                    @endif
-                            @endif
-                            >
-                            {{ $tag->name }}
-                            </option>
+                                                @endif
+                                            >
+                                            {{ $tag->name }}
+                                        </label>
+                                    </div>
+                                </div>
+
                             @endforeach
-                        </select> --}}
-            </div>
+                            </div>
+                    </div>
 
-            @endif
+                @endif
 
             <div class="form-group">
                 <button type="submit" class="btn btn-success">
@@ -163,10 +144,19 @@
 
 @section('scripts')
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.js"></script> --}}
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script id="dsq-count-scr" src="//blogcms-4.disqus.com/count.js" async></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
+    {{-- <script src="{{ asset('plugins/summernote/summernote.min.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
+    {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js" integrity="sha512-2RLMQRNr+D47nbLnsbEqtEmgKy67OSCpWJjJM394czt99xj3jJJJBQ43K7lJpfYAYtvekeyzqfZTx2mqoDh7vg==" crossorigin="anonymous"></script> --}}
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.summernote').summernote();
+        });
+    </script>
     <script>
         flatpickr('#published_at', {
             enableTime: true,
@@ -175,16 +165,10 @@
 
     </script>
 
-    <script>
-       $(".js-example-theme-multiple").select2({
-  theme: "classic"
-});
-
-    </script>
 @endsection
 
 @section('styles')
-    <link href="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/css/select2.min.css" rel="stylesheet" />
+    {{-- <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote.min.css') }}"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.0/trix.css">
 @endsection

@@ -44,6 +44,10 @@ class PostController extends Controller
      */
     public function create()
     {
+        // if ($categories->count() == 0 || $tags->count() == 0) {
+
+        // }
+
         return view('posts.create')->with('categories', Category::all())->with('tags', Tag::all());
     }
     // ->with('post', $post)
@@ -127,24 +131,40 @@ class PostController extends Controller
     public function update(UpdatePostRequest $request, Post $post)
     {
 
-        $data = $request->only(['title', 'description', 'published_at', 'content']);
+        // $data = $request->only(['title', 'description', 'published_at', 'content']);
 
         // check if there's a new image
         if ($request->hasFile('image')) {
+            // $image = $request->image;
+
+            // $image_new_name = $image->getClientOriginalName();
+
+            // $image->move(public_path().'/posts/', $image_new_name);
+
+            // $post->image = $image_new_name;
+
             $file = $request->file('image');
             $file->move(public_path(). '/posts/', $file->getClientOriginalName());
             $url = URL::to("/"). '/posts/'. $file->
             getClientOriginalName();
 
-            $data['image'] = $url;
+            $post->image = $url;
+
+            // $data['image'] = $url;
         }
+
+        $post->title = $request->title;
+        $post->content = $request->content;
+        $post->category_id = $request->category_id;
         // $post->image = $url;
 
         if ($request->tags) {
             $post->tags()->sync($request->tags);
         }
 
-        $post->update($data);
+        $post->save();
+
+        // $post->update($data);
 
         session()->flash('success', 'Post updated successfully.');
 

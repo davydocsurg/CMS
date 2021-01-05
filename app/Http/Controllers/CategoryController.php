@@ -100,23 +100,28 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        $trashed = Post::onlyTrashed()->latest()->get();
-        if ($category->posts->count() > 0) {
-            session()->flash('cat-warning', 'Category can\'t be deleted because it has some posts!');
-            return redirect()->back();
-            // dd($category->posts);
-        }
-        elseif ($category->posts($trashed)->count() > 0) {
-            session()->flash('cat-warning', 'Category can\'t be deleted because it has some posts!');
-            return redirect()->back();
-            // dd($category->posts($trashed));
+        // $trashed = Post::onlyTrashed()->latest()->get();
 
-        }
+        // if ($category->posts->count() > 0) {
+        //     session()->flash('cat-warning', 'Category can\'t be deleted because it has some posts!');
+        //     return redirect()->back();
+        //     // dd($category->posts);
+        // }
+        // elseif ($category->posts($trashed)->count() > 0) {
+        //     session()->flash('cat-warning', 'Category can\'t be deleted because it has some posts!');
+        //     return redirect()->back();
+        //     // dd($category->posts($trashed));
+
+        // }
 
         // if ($category->posts->whereNotNull('deleted_at')->count()>0) {
         //     session()->flash('cat-warning', 'Category can\'t be deleted because it has some posts!');
         //     return redirect()->back();
         // }
+
+        foreach ($category->posts as $post) {
+            $post->forceDelete();
+        }
 
         $category->delete();
 
