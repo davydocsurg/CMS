@@ -15,7 +15,7 @@
 					<div class="dropdown-menu dropdown-menu-right shadow animated--fade-in" aria-labelledby="dropdownMenuLink" style="">
 						<div class="dropdown-header">New User:</div>
 						<div class="dropdown-divider"></div>
-						<a class="dropdown-item btn-dark btn" href="{{ route('user.create') }}">Create User</a>
+						<a class="dropdown-item btn-dark btn" href="{{ route('users.create') }}">Create User</a>
 
 					</div>
 				</div>
@@ -31,9 +31,9 @@
 						<th scope="col">Image</th>
 						<th scope="col">Name</th>
 						<th scope="col">Email</th>
-						<th scope="col">Action</th>
+						<th scope="col">Permission</th>
 						{{-- <th scope="col">Modify</th> --}}
-						{{-- <th scope="col">Delete</th> --}}
+						<th scope="col">Delete</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -45,51 +45,61 @@
 							</td>
 
 							<td class="text-left">
-								<img src="{{ $user->avatar }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:3rem">
+								<img src="{{ asset($user->profile->avatar) }}" class="rounded-circle"  height="" alt="" style=" border:.1rem solid white; width:3rem">
 							</td>
 							<td>{{ $user->name }}</td>
 							<td>
                 {{ $user->email }}
 							</td>
-              <td>
-                @if (!$user->isAdmin())
-                  <div class="">
-                    {{-- @if (!$user->isAdmin()) --}}
-										<form action="{{ route('users.make_admin', $user->id) }}" method="post">
-                      @csrf
-                      <button class="btn btn-success btn-sm" type="submit">Make Admin
-                         <i class="fas fa-user-tag"></i>
-                      </button>
-                    </form>
+
+							<td>
+
+								@if ($user->id == 1)
+									<b class="text-success">Super Admin</b>
+								@endif
+
+								@if (Auth::id() == 1 && Auth::id() !== $user->id)
+									@if (!$user->isAdmin())
+										<div class="">
+											<form action="{{ route('users.make_admin', $user->id) }}" method="post">
+												@csrf
+												<button class="btn btn-success btn-sm" type="submit">Make Admin
+													<i class="fas fa-user-tag"></i>
+												</button>
+											</form>
+										</div>
+
+									@else
+									<div class="">
+										{{-- @if (!$user->isWriter()) --}}
+										<form action="{{ route('users.remove_admin', $user->id) }}" method="post">
+											@csrf
+											<button class="btn btn-warning btn-sm" type="submit">Make Writer
+												<i class="fas fa-user-edit"></i>
+											</button>
+										</form>
 										{{-- @endif --}}
 									</div>
 
-								@else
-								<div class="">
-									{{-- @if (!$user->isWriter()) --}}
-									<form action="{{ route('users.remove_admin', $user->id) }}" method="post">
-										@csrf
-										<button class="btn btn-warning btn-sm" type="submit">Make Writer
-											 <i class="fas fa-user-edit"></i>
-										</button>
-									</form>
-									{{-- @endif --}}
-								</div>
+									@endif
+								@endif
+								</td>
 
-                @endif
-							</td>
 
 							{{-- <td>
 								<a class="btn btn-info btn-sm" href="{{ route('user.edit', $user->id) }}"><i class="fas fa-user-edit"></i></a>
 							</td>
+							--}}
 
-							<td>
+							@if (Auth::id() !== $user->id && Auth::id() == 1)
+								<td>
 
-								<button class="btn btn-danger btn-sm"  onclick="handleDelete({{ $user->id }})">
-									<i class="fas fa-trash"></i>
-								</button>
+									<button class="btn btn-danger btn-sm"  onclick="handleDelete({{ $user->id }})">
+										<i class="fas fa-trash-alt"></i>
+									</button>
 
-							</td> --}}
+								</td>
+							@endif
 						</tr>
 					@endforeach
 				</tbody>
@@ -131,7 +141,7 @@
 		function handleDelete(id) {
 			$('#deleteModal').modal('show')
 			const form = document.getElementById('deleteUserForm')
-			form.action = '/user/' + id
+			form.action = '/users/' + id
 			// console.log(form);
 		}
 	</script>

@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware(['auth', 'admin']);
+    }
+
+
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        //
+        return view('settings.settings')->with('settings', Setting::first());
     }
 
     /**
@@ -67,9 +74,28 @@ class SettingsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update_set()
     {
+        // dd(request()->all());
+        $this->validate(request(),[
+            'site_name' => 'required',
+            'contact_number' => 'required',
+            'contact_email' => 'required',
+            'address' => 'required',
+        ]);
+
         $settings = Setting::first();
+
+        $settings->site_name = request()->site_name;
+        $settings->contact_number = request()->contact_number;
+        $settings->address = request()->address;
+        $settings->contact_email = request()->contact_email;
+
+        $settings->save();
+
+        \session()->flash('success', 'Application Settings Updated');
+
+        return redirect()->back();
     }
 
     /**

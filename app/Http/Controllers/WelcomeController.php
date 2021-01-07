@@ -5,11 +5,12 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Post;
 use App\Category;
+use App\Setting;
 use App\Tag;
 
 class WelcomeController extends Controller
 {
-    public function index()
+    public function index(Category $category)
     {
         // $search = request()->query('search');
 
@@ -28,8 +29,11 @@ class WelcomeController extends Controller
         // }
 
         return view('frontpage')
+            ->with('title', Setting::first()->site_name)
+            ->with('category', $category)
             ->with('categories', Category::all())
             ->with('tags', Tag::all())
+            ->with('title', Setting::first()->site_name)
             ->with('posts', Post::searched()->latest()->simplePaginate(2));
     }
 }

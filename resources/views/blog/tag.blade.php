@@ -63,7 +63,7 @@
                             <ul class="blog-info-link">
                             <li><a href="#">
                                 {{-- <i class="fas fa-user-tie"></i>  --}}
-                                <img src="{{ asset($post->user->avatar) }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem">
+                                <img src="{{ asset($post->user->profile->avatar) }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem">
                                 {{ $post->user->name }}
                             </a></li>
                             {{-- <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li> --}}
@@ -97,3 +97,49 @@
 
 
 @endsection
+
+{{-- <div class="navigation-area">
+  <div class="row">
+    @if ($next)
+      <div class="col-lg-6 col-md-6 col-12 nav-left flex-row d-flex justify-content-start align-items-center">
+        <div class="thumb">
+            <a href="{{ route('blog.show', $next->id) }}">
+                <img class="img-fluid" src="{{ asset($next->image) }}" alt="{{ substr($next->title,0,10) }}" width="65" height="65">
+            </a>
+        </div>
+        <div class="arrow">
+            <a href="{{ route('blog.show', $next->id) }}" class="disabled">
+                <span class="fas fa-arrow-left text-white"></span>
+            </a>
+        </div>
+      <div class="detials">
+            <p>Previous Post</p>
+            <a href="{{ route('blog.show', $next->id) }}" class="disabled">
+                <h4>{{ substr($next->title,0,20) }}...</h4>
+            </a>
+        </div>
+      </div>
+    @endif
+
+    @if ($prev)
+      <div class="col-lg-6 col-md-6 col-12 nav-right flex-row d-flex justify-content-end align-items-center">
+        <div class="detials">
+            <p>Next Post</p>
+            <a href="{{ route('blog.show', $prev->id) }}">
+                <h4>{{ substr($prev->title,0,20) }}...</h4>
+            </a>
+        </div>
+        <div class="arrow">
+            <a href="{{ route('blog.show', $prev->id) }}">
+                <span class="fas fa-arrow-right text-white"></span>
+            </a>
+        </div>
+        <div class="thumb">
+            <a href="{{ route('blog.show', $prev->id) }}">
+                <img class="img-fluid" src="{{ asset($prev->image) }}" alt="{{ substr($prev->title,0,10) }}" width="65" height="65">
+            </a>
+        </div>
+      </div>
+    @endif
+  </div>
+</div> --}}

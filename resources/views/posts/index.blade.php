@@ -20,7 +20,6 @@
 					</div>
 				</div>
 			{{-- </div> --}}
-
 		</div>
 		<div class="card-body">
 			@if ($posts->count() > 0 )
@@ -31,6 +30,7 @@
 						<th scope="col">Image</th>
 						<th scope="col">Title</th>
 						<th scope="col">Category</th>
+						<th scope="col">Published At</th>
 						{{-- <th scope="col">Tags</th> --}}
 						<th scope="col">Edit</th>
 						<th scope="col">Delete</th>
@@ -51,6 +51,17 @@
 									<b>{{ $post->category->name }}</b>
 								</a>
 							</td>
+
+							<td>
+								@if ($post->published_at)
+									<p>{{ $post->published_at }}</p>
+
+								@else
+
+									<p class="text-danger font-style-italic">Not yet Published.</p>
+								@endif
+							</td>
+							{{-- toFormattedDateString() ->diffForHumans() --}}
 
 							@if (!$post->trashed())
 								<td>

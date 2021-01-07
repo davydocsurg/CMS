@@ -42,11 +42,11 @@ class PostController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Category $category, Tag $tag)
     {
-        // if ($categories->count() == 0 || $tags->count() == 0) {
-
-        // }
+        if ($category->count() == 0 || $tag->count() == 0) {
+            \session()->flash('info', 'You can\'t Create A Post Without Tags and Categories');
+        }
 
         return view('posts.create')->with('categories', Category::all())->with('tags', Tag::all());
     }
@@ -83,7 +83,7 @@ class PostController extends Controller
             'published_at' => $request->published_at,
             'image' => $image,
             'user_id' => auth()->user()->id,
-            'category_id' => $request->category,
+            'category_id' => $request->category_id,
             // 'post-trixFields' => request('post-trixFields'),
         ]);
 
@@ -141,7 +141,7 @@ class PostController extends Controller
 
             // $image->move(public_path().'/posts/', $image_new_name);
 
-            // $post->image = $image_new_name;
+            // $post->image = $image_new_name;~
 
             $file = $request->file('image');
             $file->move(public_path(). '/posts/', $file->getClientOriginalName());
@@ -153,9 +153,13 @@ class PostController extends Controller
             // $data['image'] = $url;
         }
 
-        $post->title = $request->title;
-        $post->content = $request->content;
-        $post->category_id = $request->category_id;
+        $post->update($request->all());
+
+        // $post->title = $request->title;
+        // $post->description = $request->description;
+        // $post->content = $request->content;
+        // $post->category_id = $request->category_id;
+        // $post->published_at = $request->published_at;
         // $post->image = $url;
 
         if ($request->tags) {

@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests\Users;
 
+use App\User;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateProfileRequest extends FormRequest
@@ -21,12 +22,15 @@ class UpdateProfileRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(User $user)
     {
         return [
             'name' => 'required',
+            // 'email' => 'sometimes|email|max:191|unique:users,email,'.$user->id,
+            // 'password' => 'sometimes|min:8',
             // 'avatar' => 'required|avatar',
-            'about' => 'required'
+            'about' => 'required',
+
         ];
     }
 }

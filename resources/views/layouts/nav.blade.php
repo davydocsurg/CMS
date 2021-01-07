@@ -18,7 +18,7 @@
 	<link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
 	<!-- Styles -->
-	
+
 	<link href="{{ asset('css/app.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/navy.min.css') }}" rel="stylesheet">
 	<link href="{{ asset('css/ad2.css') }}" rel="stylesheet">
@@ -179,14 +179,14 @@
 
 		@if (auth()->user()->isAdmin())
 		<!-- Divider -->
-		<hr class="sidebar-divider d-none d-md-block">
+			<hr class="sidebar-divider d-none d-md-block">
 
-		<li class="nav-item">
-			<a class="nav-link" href="{{ route('users.index') }}">
+			<li class="nav-item">
+				<a class="nav-link" href="{{ route('users.index') }}">
 				<i class="fas fa-users-cog"></i>
 				<span>Users</span></a>
 			</li>
-			@endif
+		@endif
 
 			<!-- Divider -->
 			<hr class="sidebar-divider d-none d-md-block">
@@ -197,7 +197,16 @@
 						<span>Trashed Posts</span></a>
 			</li>
 			<hr class="sidebar-divider d-none d-md-block">
+			@if (auth()->user()->isAdmin())
+				<li class="nav-item">
+					<a href="{{ route('settings.index') }}" class="nav-link">
+						<i class="fas fa-cogs"></i>
+						<span>Settings</span>
+					</a>
+				</li>
+			@endif
 
+			<hr class="sidebar-divider d-none d-md-block">
 
 			<!-- Sidebar Toggler (Sidebar) -->
 			<div class="text-center d-none d-md-inline">
@@ -358,7 +367,7 @@
 
 										<div class="topbar-divider d-none d-sm-block"></div>
 										<span class="mr-2 d-none d-lg-inline text-gray-600 small text-dark">{{ Auth::user()->name }} </span>
-										<img src="{{ asset(Auth::user()->avatar) }}" class="rounded-circle img-profile"  width="20%" height="" alt="User Image" style="border-radius:50%; border:.1rem solid white">
+										<img src="{{ asset(Auth::user()->profile->avatar) }}" class="rounded-circle img-profile"  width="20%" height="" alt="{{ Auth::user()->name }}" style="border-radius:50%; border:.1rem solid white">
 													{{-- <img class="img-profile rounded-circle"
 															src="{{ asset('images/avatar.jpg') }}"> --}}
 															{{-- <i class="fas fa-caret-down"></i> --}}
@@ -368,7 +377,7 @@
 											<!-- Dropdown - User Information -->
 											<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 													aria-labelledby="userDropdown">
-													<a class="dropdown-item" href="{{ route('users.edit_profile') }}">
+													<a class="dropdown-item" href="{{ route('profile.index') }}">
 															<i class="fas fa-user-tie fa-sm fa-fw mr-2 "></i>
 															My Profile
 													</a>

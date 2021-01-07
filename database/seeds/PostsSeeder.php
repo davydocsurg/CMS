@@ -1,11 +1,12 @@
 <?php
 
-use Illuminate\Database\Seeder;
-use App\Post;
-use App\Category;
 use App\Tag;
+use App\Post;
 use App\User;
+use App\Profile;
+use App\Category;
 use Identicon\Identicon;
+use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
 
@@ -22,17 +23,31 @@ class PostsSeeder extends Seeder
         $author1 = User::create([
             'name' => 'John Doe',
             'email' => 'john@doe.com',
-            'avatar' => 'images/c1.png',
+            // 'avatar' => 'images/c1.png',
             // 'avatar' => (new Identicon())->getImageDataUri('John Doe', 256),
             'password' => Hash::make('password')
+        ]);
+
+        Profile::create([
+            'user_id' => $author1->id,
+            'avatar' => 'default.png',
+            'about' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi amet et deleniti aut dicta corrupti, doloribus beatae quibusdam, laudantium, voluptatum ex? Illo fugiat sapiente magni, similique blanditiis nihil optio necessitatibus!',
+
         ]);
 
         $author2 = User::create([
             'name' => 'Jane Doe',
             'email' => 'jane@doe.com',
-            'avatar' => 'images/next.jpg',
+            // 'avatar' => 'images/next.jpg',
             // 'avatar' => (new Identicon())->getImageDataUri('Jane Doe', 256),
             'password' => Hash::make('password')
+        ]);
+
+        Profile::create([
+            'user_id' => $author2->id,
+            'avatar' => 'default.png',
+            'about' => 'Lorem ipsum dolor sit, amet consectetur adipisicing elit. Commodi amet et deleniti aut dicta corrupti, doloribus beatae quibusdam, laudantium, voluptatum ex? Illo fugiat sapiente magni, similique blanditiis nihil optio necessitatibus!',
+
         ]);
 
         $category1 = Category::create([
