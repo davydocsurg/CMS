@@ -367,7 +367,8 @@
 
 										<div class="topbar-divider d-none d-sm-block"></div>
 										<span class="mr-2 d-none d-lg-inline text-gray-600 small text-dark">{{ Auth::user()->name }} </span>
-										{{-- <img src="{{ asset(Auth::user()->profile->avatar) }}" class="rounded-circle img-profile"  width="20%" height="" alt="{{ Auth::user()->name }}" style="border-radius:50%; border:.1rem solid white"> --}}
+										{{-- {{ dd(Auth::user()->profile) }} --}}
+										{{-- <img src="{{ asset(Auth::user('web')->profile->avatar) }}" class="rounded-circle img-profile"  width="20%" height="" alt="{{ Auth::user()->name }}" style="border-radius:50%; border:.1rem solid white"> --}}
 													{{-- <img class="img-profile rounded-circle"
 															src="{{ asset('images/avatar.jpg') }}"> --}}
 															{{-- <i class="fas fa-caret-down"></i> --}}
