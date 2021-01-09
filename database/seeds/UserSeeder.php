@@ -27,7 +27,7 @@ class UserSeeder extends Seeder
 
             Profile::create([
                 'user_id' => $user->id,
-                'avatar' => 'images/6.jpg',
+                'avatar' => 'images/c1.png',
                 'about' => 'Dedicated, passionate, and accomplished Full Stack
                 Developer with 9+ years of progressive experience working as an Independent Contractor
                 for Google and developing and growing my educational social network that helps others

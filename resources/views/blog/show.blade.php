@@ -45,9 +45,9 @@
                         </div>
                     <div class="blog_details">
                         <h2>
-                          {{ $post->title }}
+                          {!! $post->title !!}
                         </h2>
-                        <p>{{ $post->description }}</p>
+                        <p>{!! $post->description !!}</p>
 
                         <hr>
 
