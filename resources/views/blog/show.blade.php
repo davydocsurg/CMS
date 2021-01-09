@@ -147,6 +147,24 @@
                       <p>
                         {{ $post->user->profile->about }}
                       </p>
+                      <hr>
+                      <div class="float-right justify-content-space-between">
+                        @if ($post->user->profile->facebook)
+                          <a href="{{ $post->user->profile->facebook }}" target="_blank" rel="noopener noreferrer" class="text-primary"><i class="fab fa-facebook text-primary"></i></a>
+                        @endif
+
+                        @if ($post->user->profile->twitter)
+                          <a href="{{ $post->user->profile->twitter }}" target="_blank" rel="noopener noreferrer" class="text-info"><i class="fab fa-twitter"></i></a>
+                        @endif
+
+                        @if ($post->user->profile->youtube)
+                          <a href="{{ $post->user->profile->youtube }}" target="_blank" rel="noopener noreferrer" class="text-danger"><i class="fab fa-youtube"></i></a>
+                        @endif
+
+                        @if ($post->user->profile->linkedin)
+                          <a href="{{ $post->user->profile->linkedin }}" target="_blank" rel="noopener noreferrer" class="text-info"><i class="fab fa-linkedin"></i></a>
+                        @endif
+                      </div>
                     </div>
                   </div>
                 </div>

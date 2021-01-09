@@ -2,7 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Category;
+use App\Post;
+use App\Profile;
+use App\Tag;
+use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
@@ -23,6 +29,13 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        return view('dashboard')
+            ->with('user', Auth::user())
+            ->with('profile', Profile::all())
+            ->with('posts_count', Post::all()->count())
+            ->with('trashedposts_count', Post::onlyTrashed()->get()->count())
+            ->with('categories_count', Category::all()->count())
+            ->with('tags_count', Tag::all()->count())
+            ->with('writers_count', User::all()->count());
     }
 }

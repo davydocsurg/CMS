@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Blog\PostsController;
 use App\Http\Controllers\SettingsController;
+// use Newsletter;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,16 @@ use App\Http\Controllers\SettingsController;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::post('/subscribe', function(){
+    $email = request('email');
+
+    Newsletter::subscribe($email);
+
+    session()->flash('subscribed', 'You successfully subscribed to our Newsletter.');
+
+    return redirect()->back();
+});
 
 Route::get('/', 'WelcomeController@index')->name('welcome');
 Route::get('blog/post/{post}', [PostsController::class, 'show'])->name('blog.show');
@@ -38,7 +49,7 @@ Route::middleware(['auth', 'admin'])->group(function(){
 });
 
 Route::middleware(['auth'])->group(function() {
-    Route::get('/home', 'HomeController@index')->name('home');
+    Route::get('/dashboard', 'HomeController@index')->name('home');
     Route::resource('/categories', 'CategoryController');
     Route::resource('/tags', 'TagsController');
     Route::resource('/post', 'PostController');

@@ -78,7 +78,7 @@
 
 			<!-- Nav Item - Dashboard -->
 			<li class="nav-item active">
-					<a class="nav-link" href="{{ url('/home') }}">
+					<a class="nav-link" href="{{ url('/dashboard') }}">
 							<i class="fas fa-fw fa-tachometer-alt"></i>
 							<span>Dashboard</span></a>
 			</li>
@@ -367,7 +367,7 @@
 
 										<div class="topbar-divider d-none d-sm-block"></div>
 										<span class="mr-2 d-none d-lg-inline text-gray-600 small text-dark">{{ Auth::user()->name }} </span>
-										<img src="{{ asset(Auth::user()->profile->avatar) }}" class="rounded-circle img-profile"  width="20%" height="" alt="{{ Auth::user()->name }}" style="border-radius:50%; border:.1rem solid white">
+										{{-- <img src="{{ asset(Auth::user()->profile->avatar) }}" class="rounded-circle img-profile"  width="20%" height="" alt="{{ Auth::user()->name }}" style="border-radius:50%; border:.1rem solid white"> --}}
 													{{-- <img class="img-profile rounded-circle"
 															src="{{ asset('images/avatar.jpg') }}"> --}}
 															{{-- <i class="fas fa-caret-down"></i> --}}
@@ -377,10 +377,10 @@
 											<!-- Dropdown - User Information -->
 											<div class="dropdown-menu dropdown-menu-right shadow animated--grow-in"
 													aria-labelledby="userDropdown">
-													<a class="dropdown-item" href="{{ route('profile.index') }}">
+													{{-- <a class="dropdown-item" href="{{ route('profile.index') }}">
 															<i class="fas fa-user-tie fa-sm fa-fw mr-2 "></i>
 															My Profile
-													</a>
+													</a> --}}
 													<a class="dropdown-item" href="#">
 															<i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
 															Settings

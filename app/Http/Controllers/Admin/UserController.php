@@ -23,7 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index')->with('users', User::simplePaginate(5));
+        return view('users.index')->with('users', User::all());
     }
 
     /**

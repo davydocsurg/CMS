@@ -26,7 +26,10 @@
     <link rel="stylesheet" href="{{ asset('css/welcome/responsive.css') }}" />
 
     	<!-- Fonts -->
-	<link rel="stylesheet" href="{{ asset('fontawesome-free/css/all.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('fontawesome-free/css/all.min.css') }}">
+
+  {{-- toasts --}}
+	<link rel="stylesheet" href="{{ asset('css/toastr.min.css') }}">
   </head>
 
   <body>
@@ -103,7 +106,7 @@
                       @if (Route::has('login'))
                         @auth
                           <li class="nav-item">
-                            <a href="{{ url('/home') }}" class=" nav-link">Dashboard</a>
+                            <a href="{{ url('/dashboard') }}" class=" nav-link">Dashboard</a>
                           </li>
                         @else
                           <li class="nav-item">
@@ -138,19 +141,21 @@
           <div class="col-lg-4 col-md-6 single-footer-widget float-right">
             <h4>Newsletter</h4>
             <p>You can trust us. we only send promo offers,</p>
-            <div class="form-wrap" id="mc_embed_signup">
-              <form target="_blank" action=""
-                method="get" class="form-inline">
-                <input class="form-control" name="EMAIL" placeholder="Your Email Address" onfocus="this.placeholder = ''"
-                  onblur="this.placeholder = 'Your Email Address '" required="" type="email">
-                <button class="click-btn btn btn-default">Subscribe</button>
-                <div style="position: absolute; left: -5000px;">
-                  <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
-                </div>
+            {{-- <div class="form-wrap" id="mc_embed_signup"> --}}
+              <form action="/subscribe"
+                method="post" class="form-inline">
+                @csrf
+                <input class="form-control" name="email" placeholder="Your Email Address"  required="" type="email">
+                <button class="click-btn btn btn-default" type="submit">Subscribe</button>
 
-                <div class="info"></div>
+                {{-- onfocus="this.placeholder = ''" onblur="this.placeholder = 'Your Email Address '" --}}
+                {{-- <div style="position: absolute; left: -5000px;">
+                  <input name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="" type="text">
+                </div> --}}
+
+                {{-- <div class="info"></div> --}}
               </form>
-            </div>
+            {{-- </div> --}}
           </div>
 
         </div>
@@ -172,7 +177,7 @@
       <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
     <script src="{{ asset('js/welcome/jquery-3.2.1.min.js') }}"></script>
-	<script src="{{ asset('js/vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
+    <script src="{{ asset('js/vendor/bootstrap/js/bootstrap.bundle.min.js') }}" ></script>
     <script src="{{ asset('js/welcome/popper.js') }}"></script>
     {{-- <script src="{{ asset('js/welcome/bootstrap.min.js') }}"></script> --}}
     <script src="{{ asset('js/welcome/stellar.js') }}"></script>
@@ -188,6 +193,15 @@
     <script src="{{ asset('js/welcome/theme.js') }}"></script>
     <script src="{{ asset('fontawesome-free/css/all.min.css') }}"></script>
     <script id="dsq-count-scr" src="//blogcms-4.disqus.com/count.js" async></script>
+    	{{-- toasts --}}
+    <script src="{{ asset('js/toastr.min.js') }}"></script>
+
+    <script>
+      @if (session()->has('subscribed'))
+        toastr.success('{{ session()->get('subscribed') }}')
+      @endif
+    </script>
+
     {{-- <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fa1eab8c3aaa4cf"></script> --}}
     <script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5fa1eab8c3aaa4cf"></script>
 

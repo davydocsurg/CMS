@@ -148,8 +148,8 @@
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script id="dsq-count-scr" src="//blogcms-4.disqus.com/count.js" async></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-beta.1/dist/js/select2.min.js"></script>
-    <script src="{{ asset('plugins/summernote/summernote.min.js') }}"></script>
-    {{-- <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script> --}}
+    {{-- <script src="{{ asset('plugins/summernote/summernote.min.js') }}"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.js"></script>
     {{-- <script src="https://cdnjs.cloudflare.com/ajax/libs/trix/1.3.1/trix.min.js" integrity="sha512-2RLMQRNr+D47nbLnsbEqtEmgKy67OSCpWJjJM394czt99xj3jJJJBQ43K7lJpfYAYtvekeyzqfZTx2mqoDh7vg==" crossorigin="anonymous"></script> --}}
 
     <script type="text/javascript">
@@ -168,7 +168,7 @@
 @endsection
 
 @section('styles')
-    <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote.min.css') }}">
-    {{-- <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet"> --}}
+    {{-- <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote.min.css') }}"> --}}
+    <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.18/dist/summernote.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 @endsection
