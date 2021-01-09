@@ -14,7 +14,7 @@ return [
      * https://us10.admin.mailchimp.com/account/api-key-popup/.
      */
     // 'apiKey' => env('MAILCHIMP_APIKEY', '8047bc8602842d347cb42e279ffef963-us7'),
-    'apiKet' => ('8047bc8602842d347cb42e279ffef963-us7'),
+    'apiKey' => ('8047bc8602842d347cb42e279ffef963-us7'),
 
     /*
      * The listName to use when no listName has been specified in a method.
