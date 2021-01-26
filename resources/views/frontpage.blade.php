@@ -64,7 +64,7 @@
                                 <ul class="blog-info-link">
                                 <li class="card-body shadow-lg"><a href="#!">
                                     {{-- <i class="fas fa-user-tie"></i>  --}}
-                                    <img src="{{ $post->user->profile->avatar }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem">
+                                    {{-- <img src="{{ $post->user->profile->avatar }}"  height="" alt="" style="border-radius:50%; border:.1rem solid white; width:1.7rem"> --}}
                                     {{ $post->user->name }}
                                 </a></li>
                                 {{-- <li><a href="#"><i class="fas fa-comments"></i> 03 Comments</a></li> --}}
