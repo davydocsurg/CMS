@@ -411,7 +411,7 @@
 							</ul>
 
 					</nav>
-					<main class="py-4 px-4">
+					<main class="py-4 px-0">
 						{{-- @if (session()->has('success')) --}}
 							{{-- toastr.success('{{ session()->get('success') }}') --}}
 							{{-- <div class="alert alert-success alert-dismissible fade show" role="alert">
