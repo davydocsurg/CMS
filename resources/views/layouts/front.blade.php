@@ -46,7 +46,7 @@
 
                     {{-- <i class="fas fa-blog" style="width: 2em !important;"></i> --}}
                     <sup>{{ $title }}</sup>
-                    <sup>CMS</sup>
+                    {{-- <sup>CMS</sup> --}}
               </a>
               <button
                 class="navbar-toggler"
@@ -118,7 +118,7 @@
 
                             @if (Route::has('register'))
                               <li class="nav-item">
-                                <a href="{{ route('register') }}" class="nav-link">Register</a>
+                                <a href="{{ route('register') }}" class="nav-link">Register <i class="fas fa-edit"></i></a>
                               </li>
                             @endif
                         @endauth

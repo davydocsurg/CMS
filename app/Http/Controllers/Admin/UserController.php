@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\User;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Hash;
 use App\Http\Requests\Users\CreateUserRequest;
 use App\Profile;
+use App\Setting;
+use App\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
@@ -23,7 +24,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index')->with('users', User::all());
+        return view('users.index')->with('users', User::paginate(5))->with('title', Setting::first()->site_name);
     }
 
     /**
@@ -33,7 +34,8 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('users.create');
+        return view('users.create')
+            ->with('title', Setting::first()->site_name);
     }
 
     /**
@@ -44,15 +46,21 @@ class UserController extends Controller
      */
     public function store(CreateUserRequest $request)
     {
+
+        $request->validate([
+            'name' => 'required|max:50',
+            'email' => 'required|email|unique:users',
+        ]);
+
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
-            'password' => Hash::make('password')
+            'password' => Hash::make('password'),
         ]);
 
         $profile = Profile::create([
             'user_id' => $user->id,
-            'avatar' => 'default.png'
+            'avatar' => 'default.png',
         ]);
 
         session()->flash('success', 'User created successfully');

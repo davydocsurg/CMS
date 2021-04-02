@@ -12,6 +12,6 @@ class Profile extends Model
     }
 
     protected $fillable = [
-        'avatar', 'about', 'facebook', 'youtube', 'twitter', 'linkedin', 'user_id', 'job_title', 'location'
+        'avatar', 'cover_photo', 'about', 'facebook', 'youtube', 'twitter', 'linkedin', 'user_id', 'job_title', 'location',
     ];
 }

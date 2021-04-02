@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Tag;
 use App\Http\Requests\Tags\CreateTagRequest;
 use App\Http\Requests\Tags\UpdateTagRequest;
+use App\Setting;
+use App\Tag;
+use Illuminate\Http\Request;
 
 class TagsController extends Controller
 {
@@ -16,7 +17,7 @@ class TagsController extends Controller
      */
     public function index()
     {
-        return view('tags.index')->with('tags', Tag::latest()->get());
+        return view('tags.index')->with('tags', Tag::latest()->get())->with('title', Setting::first()->site_name);
     }
 
     /**
@@ -26,7 +27,8 @@ class TagsController extends Controller
      */
     public function create()
     {
-        return view('tags.create');
+        return view('tags.create')
+            ->with('title', Setting::first()->site_name);
     }
 
     /**
@@ -38,7 +40,7 @@ class TagsController extends Controller
     public function store(CreateTagRequest $request)
     {
         Tag::create([
-            'name' => $request->name
+            'name' => $request->name,
         ])->save();
 
         session()->flash('success', 'Tag created successfully.');
@@ -78,7 +80,7 @@ class TagsController extends Controller
     public function update(UpdateTagRequest $request, Tag $tag)
     {
         $tag->update([
-            'name' => $request->name
+            'name' => $request->name,
         ]);
         session()->flash('success', 'Tag updated successfully.');
         return redirect(route('tags.index'));

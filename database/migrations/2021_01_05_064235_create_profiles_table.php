@@ -16,7 +16,10 @@ class CreateProfilesTable extends Migration
         Schema::create('profiles', function (Blueprint $table) {
             $table->id();
             $table->string('avatar')->default('default.png');
+            $table->string('cover_photo')->default('images/photo1.png');
             $table->text('about')->nullable();
+            $table->text('job_title')->nullable();
+            $table->text('location')->nullable();
             $table->string('facebook')->nullable();
             $table->string('youtube')->nullable();
             $table->string('twitter')->nullable();

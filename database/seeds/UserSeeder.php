@@ -1,8 +1,7 @@
 <?php
 
-use App\User;
 use App\Profile;
-use Identicon\Identicon;
+use App\User;
 use Illuminate\Database\Seeder;
 
 class UserSeeder extends Seeder
@@ -17,18 +16,21 @@ class UserSeeder extends Seeder
         // $user = User::where('email', 'developantic@gmail.com')->first();
 
         // if (!$user) {
-            $user = User::create([
-                'name' => 'Dr. Greg',
-                'email' => 'developantic@gmail.com',
-                'role' => 'admin',
-                 // 'avatar' => (new Identicon())->getImageDataUri('Dr. Greg', 256),
-                'password' => Hash::make('password')
-            ]);
+        $user = User::create([
+            'name' => 'Dr. Greg',
+            'email' => 'admin@email.com',
+            'role' => 'admin',
+            // 'avatar' => (new Identicon())->getImageDataUri('Dr. Greg', 256),
+            'password' => Hash::make('password'),
+        ]);
 
-            Profile::create([
-                'user_id' => $user->id,
-                'avatar' => 'images/c1.png',
-                'about' => 'Dedicated, passionate, and accomplished Full Stack
+        Profile::create([
+            'user_id' => $user->id,
+            'avatar' => 'images/c1.jpg',
+            'cover_photo' => 'images/photo1.png',
+            'job_title' => 'Senior Software Engineer at Technext Limited',
+            'location' => 'New York, USA',
+            'about' => 'Dedicated, passionate, and accomplished Full Stack
                 Developer with 9+ years of progressive experience working as an Independent Contractor
                 for Google and developing and growing my educational social network that helps others
                 learn programming, web design, game development,
@@ -44,11 +46,11 @@ class UserSeeder extends Seeder
                 explain technology to everyone, from staff to
                 executives who need me to tie together the details and the big picture. I can also
                 implement the technologies that successful projects need.',
-                'facebook' => 'https://www.facebook.com/',
-                'twitter' => 'https://www.twitter.com/davydocsurg',
-                'linkedin' => 'https://www.linkedin.com/in/davidchibueze',
-                'youtube' => 'https://www.youtube.com/developantic'
-            ]);
+            'facebook' => 'https://www.facebook.com/',
+            'twitter' => 'https://www.twitter.com/davydocsurg',
+            'linkedin' => 'https://www.linkedin.com/in/davidchibueze',
+            'youtube' => 'https://www.youtube.com/davydocsurg',
+        ]);
         // }
     }
 }

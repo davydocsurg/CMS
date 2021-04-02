@@ -13,7 +13,6 @@ class SettingsController extends Controller
         $this->middleware(['auth', 'admin']);
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -21,7 +20,7 @@ class SettingsController extends Controller
      */
     public function index()
     {
-        return view('settings.settings')->with('settings', Setting::first());
+        return view('settings.settings')->with('settings', Setting::first())->with('title', Setting::first()->site_name);
     }
 
     /**
@@ -77,7 +76,7 @@ class SettingsController extends Controller
     public function update_set()
     {
         // dd(request()->all());
-        $this->validate(request(),[
+        $this->validate(request(), [
             'site_name' => 'required',
             'contact_number' => 'required',
             'contact_email' => 'required',

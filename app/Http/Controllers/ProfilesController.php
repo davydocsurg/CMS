@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\Users\UpdateProfileRequest;
+use App\Setting;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Http\Requests\Users\UpdateProfileRequest;
 
 class ProfilesController extends Controller
 {
@@ -18,8 +19,8 @@ class ProfilesController extends Controller
     public function index()
     {
         return view('users.profile')
-            ->with('user', Auth::user());
-            // ->with('user_profile', '');
+            ->with('user', Auth::user())->with('title', Setting::first()->site_name);
+        // ->with('user_profile', '');
     }
 
     /**
@@ -84,12 +85,20 @@ class ProfilesController extends Controller
             $user->profile->save();
         }
 
+        if ($request->hasFile('cover_photo')) {
+            $cover_photo = $request->cover_photo;
+            $cover_photo_new_name = time() . $cover_photo->getClientOriginalName();
+            $cover_photo->move('uploads/profile', $cover_photo_new_name);
+            $user->profile->cover_photo = 'uploads/profile/' . $cover_photo_new_name;
+            $user->profile->save();
+        }
+
         $user->name = $request->name;
         $user->email = $request->email;
         $user->profile->about = $request->about;
         $user->profile->job_title = $request->job_title;
         $user->profile->location = $request->location;
-        $user->password = $request->password;
+        // $user->password = $request->password;
         $user->profile->facebook = $request->facebook;
         $user->profile->youtube = $request->youtube;
         $user->profile->twitter = $request->twitter;

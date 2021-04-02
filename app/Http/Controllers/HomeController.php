@@ -5,9 +5,9 @@ namespace App\Http\Controllers;
 use App\Category;
 use App\Post;
 use App\Profile;
+use App\Setting;
 use App\Tag;
 use App\User;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -36,6 +36,7 @@ class HomeController extends Controller
             ->with('trashedposts_count', Post::onlyTrashed()->get()->count())
             ->with('categories_count', Category::all()->count())
             ->with('tags_count', Tag::all()->count())
+            ->with('title', Setting::first()->site_name)
             ->with('writers_count', User::all()->count());
     }
 }

@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Category;
 use App\Http\Requests\Posts\CreatePostsRequest;
 use App\Http\Requests\Posts\UpdatePostRequest;
 use App\Post;
-use App\Category;
+use App\Setting;
 use App\Tag;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\URL;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\URL;
 
 class PostController extends Controller
 {
 
     /**
-    * Create a new controller instance.
-    *
-    * @return void
-    */
+     * Create a new controller instance.
+     *
+     * @return void
+     */
     public function __construct()
     {
         $this->middleware('verifyCategoriesCount')->only(['create', 'store']);
     }
-
 
     /**
      * Display a listing of the resource.
@@ -33,8 +33,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return view('posts.index')->with('posts', Post::latest()->get())
-        ->with('tags', Tag::latest()->get());
+        return view('posts.index')->with('posts', Post::latest()->paginate(5))
+            ->with('tags', Tag::latest()->get())->with('title', Setting::first()->site_name);
     }
 
     /**
@@ -48,7 +48,7 @@ class PostController extends Controller
             \session()->flash('info', 'You can\'t Create A Post Without Tags and Categories');
         }
 
-        return view('posts.create')->with('categories', Category::all())->with('tags', Tag::all());
+        return view('posts.create')->with('categories', Category::all())->with('tags', Tag::all())->with('title', Setting::first()->site_name);
     }
     // ->with('post', $post)
 
@@ -62,18 +62,15 @@ class PostController extends Controller
     {
         // dd($request->all());
         // upload the image to storage
-        if($request->hasFile('image')){
+        if ($request->hasFile('image')) {
             $file = $request->file('image');
-            $file->move(public_path(). '/posts/', $file->getClientOriginalName());
-            $url = URL::to("/"). '/posts/'. $file->
-            getClientOriginalName();
-
+            $file->move(public_path() . '/posts/', $file->getClientOriginalName());
+            $url = URL::to("/") . '/posts/' . $file->
+                getClientOriginalName();
 
             // $image = $request->image->store('posts');
         }
         $image = $url;
-
-
 
         // create the post
         $post = Post::create([
@@ -118,7 +115,9 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         // dd($post->tags->pluck('id')->toArray());
-        return view('posts.create')->with('post', $post)->with('categories', Category::all())->with('tags', Tag::all());
+        return view('posts.create')->with('post', $post)
+            ->with('title', Setting::first()->site_name)
+            ->with('categories', Category::all())->with('tags', Tag::all());
     }
 
     /**
@@ -135,35 +134,27 @@ class PostController extends Controller
 
         // check if there's a new image
         if ($request->hasFile('image')) {
-            // $image = $request->image;
-
-            // $image_new_name = $image->getClientOriginalName();
-
-            // $image->move(public_path().'/posts/', $image_new_name);
-
-            // $post->image = $image_new_name;~
-
-            $file = $request->file('image');
-            $file->move(public_path(). '/posts/', $file->getClientOriginalName());
-            $url = URL::to("/"). '/posts/'. $file->
-            getClientOriginalName();
-
-            $post->image = $url;
-
-            // $data['image'] = $url;
+            $image = $request->image;
+            $image_new_name = time() . $image->getClientOriginalName();
+            $image->move('uploads/posts', $image_new_name);
+            $post->image = 'uploads/posts/' . $image_new_name;
+            $post->save();
         }
 
-        $post->update($request->all());
-
-        // $post->title = $request->title;
-        // $post->description = $request->description;
-        // $post->content = $request->content;
+        $post->title = $request->title;
+        $post->description = $request->description;
+        $post->content = $request->content;
         // $post->category_id = $request->category_id;
-        // $post->published_at = $request->published_at;
+        $post->published_at = $request->published_at;
         // $post->image = $url;
 
         if ($request->tags) {
             $post->tags()->sync($request->tags);
+        }
+
+        if ($request->category_id) {
+            $post->category_id = $request->category_id;
+            $post->save();
         }
 
         $post->save();
@@ -175,7 +166,7 @@ class PostController extends Controller
         return redirect(route('post.index'));
     }
 
-      /**
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
@@ -185,7 +176,7 @@ class PostController extends Controller
     {
 
         $post = Post::withTrashed()->whereId($id)->firstOrFail();
-        $postImage = public_path('posts/').$post->image;
+        $postImage = public_path('posts/') . $post->image;
         // $post->delete();
         if ($post->trashed()) {
             // Storage::delete($post->image);
@@ -194,7 +185,6 @@ class PostController extends Controller
         } else {
             $post->delete();
         }
-
 
         session()->flash('success', 'Post deleted successfully.');
 
@@ -208,9 +198,9 @@ class PostController extends Controller
      */
     public function trashed()
     {
-        $trashed = Post::onlyTrashed()->latest()->get();
+        $trashed = Post::onlyTrashed()->latest()->paginate(5);
 
-        return view('posts.index')->withPosts($trashed);
+        return view('posts.index')->withPosts($trashed)->with('title', Setting::first()->site_name);
     }
 
     /**

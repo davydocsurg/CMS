@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Post;
 use App\Category;
+use App\Post;
 use App\Setting;
 use App\Tag;
 
@@ -33,8 +32,7 @@ class WelcomeController extends Controller
             ->with('category', $category)
             ->with('categories', Category::all())
             ->with('tags', Tag::all())
-            ->with('title', Setting::first()->site_name)
+            // ->with('title', Setting::first()->site_name)
             ->with('posts', Post::searched()->latest()->simplePaginate(2));
     }
 }
-
